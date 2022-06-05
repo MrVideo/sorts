@@ -18,7 +18,7 @@ int main() {
         array[i] = rand() % MAX;
 
     printf("Before:\n"); // Prints array in random order
-    for(int i = 0; i<100; i++)
+    for(int i = 0; i<N; i++)
         printf("%d\t", array[i]);
 
     //! SORTING START
