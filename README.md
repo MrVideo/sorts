@@ -15,4 +15,4 @@ clang -o filename filename.c array_functions.c
 
 ## Library
 
-You can use the library I included in this repository in your project. Make sure you include it in your code and use it according to the [license](https://github.com/MrVideo/sorts/LICENSE) provided with the repository.
+You can use the library I included in this repository in your project. Make sure you include it in your code and use it according to the [license](https://github.com/MrVideo/sorts/blob/main/LICENSE) provided with the repository.
