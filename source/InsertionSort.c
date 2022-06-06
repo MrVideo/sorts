@@ -21,16 +21,14 @@ int main() {
 
     for(int i = 1; i < N; i++) { 
         int j = i - 1;
-        if(array[j] > array[i]) {                       // Check if the item to the left is greater than
-            while(j >= 0 && array[j] > array[j+1]) {    // the one on the right. If it is, then
-                int tmp = array[j];                     // move the item to the right one position to
-                array[j] = array[j+1];                  // the left. Check for every item in the array
-                array[j+1] = tmp;                       // and then move on.
-                j--;
-            }
+        if(array[j] > array[i]) {                        // Check if the item to the left is greater than
+            while(j >= 0 && array[j] > array[j+1]) {     // the one on the right. If it is, then
+                swap(&array[j], &array[j + 1]);          // move the item to the right one position to
+                j--;                                     // the left. Check for every item in the array
+            }                                            // and then move on.
         }
     }
-
+    
     //! SORTING END
     
     printf("\nAfter:\n"); // Prints the ordered array
