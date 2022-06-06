@@ -5,71 +5,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "array_functions.h"
 
-#define N 10 // Array size
-#define MAX 20 // Max random integer
+#define N 100 // Array size
+#define MAX 1000 // Max random integer
 
-void heapify(int *array, int node, int size);
+void heapify(int *array, int n, int size);
+void buildMaxHeap(int *array, int size);
 void heapSort(int *array, int size);
-void swap(int *a, int *b); //* Support function
 
 int main() {
-    int array[N];
-
-    srand(time(NULL)); // Random int generation
-
-    for(int i = 0; i<N; i++)
-        array[i] = rand() % MAX;
-
-    printf("Before:\n"); // Prints array in random order
-    for(int i = 0; i<N; i++)
-        printf("%d\t", array[i]);
-
-    //! SORTING START
-
-    heapSort(array, N);
-
-    //! SORTING END
+    int a[N];
+    fillArray(a, N, MAX);
     
-    printf("\nAfter:\n"); // Prints the ordered array
-    for(int i = 0; i<N; i++)
-        printf("%d\t", array[i]);
+    printf("Before:\n");
+    printArray(a, N);
+
+    heapSort(a, N);
+
+    printf("\nAfter:\n");
+    printArray(a, N);
 
     return 0;
 }
 
-//* Support function
-void swap(int *a, int *b) { // Swaps the values of *a* and *b*
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
+void heapify(int *array, int n, int size) {         // Check if the node passed is bigger
+    int left = 2 * n;                               // than its child nodes. If not, swap
+    int right = 2 * n + 1;                          // the biggest node with the node
+    int max = n;                                    // passed to the function and recheck
 
-//! SORTING START
-void heapify(int *array, int node, int size) {      // This function takes a node index and the tree size
-    int max = node;                                 // to create a max heap, where the parent element is
-    int l = 2 * node + 1;                           // larger than all of its child elements.
-    int r = 2 * node + 2;
+    if(left < size && array[left] > array[max])
+        max = left;
+    if(right < size && array[right] > array[max])
+        max = right;
 
-    if(l < size && array[l] > array[max])
-        max = l;
-    if(r < size && array[r] > array[max])
-        max = r;
-
-    if(max != node) {                               // If the tree is not a max heap already, the node
-        swap(&array[max], &array[node]);            // passed to the function gets swapped for the 
-        heapify(array, max, size);                  // largest one and the process restarts.
+    if(max != n) {
+        swap(&array[max], &array[n]);
+        heapify(array, max, size);
     }
 }
 
-void heapSort(int *array, int size) {               // This functions builds a max heap for each node
-    for(int i = size / 2 - 1; i >= 0; i--)          // in the tree and then sorts the array passed to
-        heapify(array, i, size);                    // it 
-
-    for(int i = size - 1; i >= 0; i--) {
-        swap(&array[0], &array[i]);
-        heapify(array, 0, i);
-    }
+void buildMaxHeap(int *array, int size) {           // Builds the max heap
+    for(int i = size / 2; i >= 0; i--)              //* Only runs once
+        heapify(array, i, size);
 }
 
-//! SORTING END
+void heapSort(int *array, int size) {               // This function builds the max heap and
+    buildMaxHeap(array, size);                      // then swaps the biggest item, which is
+    for (int i = size - 1; i >= 0; i--) {           // the root of the tree, with the last item,
+        swap(&array[0], &array[i]);                 // sorting it, to then pass the array to heapify
+        heapify(array, 0, i);                       // again, ignoring the last item, which is
+    }                                               // in the correct spot.
+}

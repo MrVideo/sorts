@@ -5,27 +5,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "array_functions.h"
 
 #define N 100 // Array size
 #define MAX 1000 // Max random integer
-
-//* Support function
-void swap(int *a, int *b);
 
 void quickSort(int *array, int start, int end);
 int partition(int *array, int start, int end);
 
 int main() {
     int array[N];
-
-    srand(time(NULL)); // Random int generation
-
-    for(int i = 0; i<N; i++)
-        array[i] = rand() % MAX;
+    fillArray(array, N, MAX);
 
     printf("Before:\n"); // Prints array in random order
-    for(int i = 0; i<N; i++)
-        printf("%d\t", array[i]);
+    printArray(array, N);
+
 
     //! SORTING START
 
@@ -34,17 +28,9 @@ int main() {
     //! SORTING END
     
     printf("\nAfter:\n"); // Prints the ordered array
-    for(int i = 0; i<N; i++)
-        printf("%d\t", array[i]);
+    printArray(array, N);
 
     return 0;
-}
-
-//* Support function
-void swap(int *a, int *b){
-    int tmp = *a;
-    *a = *b;
-    *b = tmp;
 }
 
 //! SORTING START
