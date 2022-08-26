@@ -53,3 +53,9 @@ dkms.conf
 
 # VS Code config files
 .vscode/
+
+# File system
+.DS_Store
+
+# Binary folder
+bin/
